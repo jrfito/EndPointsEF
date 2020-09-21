@@ -19,7 +19,9 @@ namespace EndPointsEF
         {
             // Cliente
             CreateMap<ClienteModel, ClienteEntity>();
-            CreateMap<ClienteEntity, ClienteModel>();
+            CreateMap<ClienteModelRequest, ClienteEntity>();
+            CreateMap<ClienteEntity, ClienteModel>()
+                .ForMember(dest => dest.Domicilio, options => options.MapFrom(origin => $"{origin.Calle} Numero Exterior {origin.NumeroExterior}, {origin.Colonia}, {origin.CodigoPostal}"));
 
             // Factura
             CreateMap<FacturaModel, FacturaEntity>();

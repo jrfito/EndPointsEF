@@ -11,6 +11,10 @@ namespace EndPointsEF.DataEntities
         [Key]
         public int Id { get; set; }
         public string Nombre { get; set; }
+        public string Calle { get; set; }
+        public string NumeroExterior { get; set; }
+        public string Colonia { get; set; }
+        public string CodigoPostal { get; set; }
         public string Telefono { get; set; }
 
         public virtual IEnumerable<FacturaEntity> Facturas { get; set; }

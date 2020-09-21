@@ -19,7 +19,7 @@ namespace EndPointsEF.Services.Implementations
             this._dbContext = dbContext;
             this._mapper = mapper;
         }
-        public async Task<ClienteEntity> PostCliente(ClienteModel model)
+        public async Task<ClienteEntity> PostCliente(ClienteModelRequest model)
         {
             var cliente = this._dbContext.Set<ClienteEntity>().Add(this._mapper.Map<ClienteEntity>(model));
             await this._dbContext.SaveChangesAsync();

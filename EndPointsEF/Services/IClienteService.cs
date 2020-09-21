@@ -9,6 +9,6 @@ namespace EndPointsEF.Services
 {
     public interface IClienteService
     {
-        Task<ClienteEntity> PostCliente(ClienteModel model);
+        Task<ClienteEntity> PostCliente(ClienteModelRequest model);
     }
 }

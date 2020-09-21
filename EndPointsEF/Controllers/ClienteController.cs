@@ -21,7 +21,7 @@ namespace EndPointsEF.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> Post(ClienteModel request)
+        public async Task<IActionResult> Post(ClienteModelRequest request)
         {
             var cliente = await this._clienteService.PostCliente(request);
             return Ok(cliente);
