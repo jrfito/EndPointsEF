@@ -20,5 +20,7 @@ namespace EndPointsEF.DataContext
         public DbSet<FacturaEntity> Factura { get; set; }
 
         public DbSet<DetalleFacturaEntity> DetalleFactura { get; set; }
+
+        public DbSet<AnotationEntity> AnotationExample { get; set; }
     }
 }

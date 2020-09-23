@@ -21,7 +21,13 @@ namespace EndPointsEF.Services.Implementations
         }
 
         public async Task<FacturaFullModel> GetFacturaByIdAsync(int id)
+
         {
+            // Get factura
+            var factura = await this._dbContext.Set<FacturaEntity>().FindAsync(id);
+            // other way to get factura
+            var factura2 = await this._dbContext.Factura.FindAsync(id);
+
             return this._mapper.Map<FacturaFullModel>(await this._dbContext.Set<FacturaEntity>().FindAsync(id));
         }
 
