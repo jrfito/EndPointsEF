@@ -4,14 +4,16 @@ using EndPointsEF.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EndPointsEF.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200925152728_apiFluent")]
+    partial class apiFluent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,7 +74,7 @@ namespace EndPointsEF.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cliente");
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("EndPointsEF.DataEntities.DetalleFacturaEntity", b =>
@@ -123,27 +125,6 @@ namespace EndPointsEF.Migrations
                     b.ToTable("Factura");
                 });
 
-            modelBuilder.Entity("EndPointsEF.DataEntities.LocalidadEntity", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.Property<string>("NombreLocalidad")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("ParentId")
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ParentId");
-
-                    b.ToTable("Localidad");
-                });
-
             modelBuilder.Entity("EndPointsEF.DataEntities.MuebleEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -165,48 +146,6 @@ namespace EndPointsEF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Mueble");
-                });
-
-            modelBuilder.Entity("EndPointsEF.DataEntities.TipoMuebleEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(80)")
-                        .HasMaxLength(80);
-
-                    b.Property<int>("NumeroRegistro")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Descripcion");
-
-                    b.ToTable("TipoMueble");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Descripcion = "Linea Blanca",
-                            NumeroRegistro = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Descripcion = "Electrodomesticos",
-                            NumeroRegistro = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Descripcion = "Electrónica",
-                            NumeroRegistro = 0
-                        });
                 });
 
             modelBuilder.Entity("EndPointsEF.DataEntities.VendedorEntity", b =>
@@ -254,13 +193,6 @@ namespace EndPointsEF.Migrations
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EndPointsEF.DataEntities.LocalidadEntity", b =>
-                {
-                    b.HasOne("EndPointsEF.DataEntities.LocalidadEntity", "Parent")
-                        .WithMany()
-                        .HasForeignKey("ParentId");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,6 +2,7 @@
 using EndPointsEF.DataContext;
 using EndPointsEF.DataEntities;
 using EndPointsEF.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace EndPointsEF.Services.Implementations
             var factura = await this._dbContext.Set<FacturaEntity>().FindAsync(id);
             // other way to get factura
             var factura2 = await this._dbContext.Factura.FindAsync(id);
+
+            //this._dbContext.Factura.Include<ClienteEntity>().FirstOrDefault();
 
             return this._mapper.Map<FacturaFullModel>(await this._dbContext.Set<FacturaEntity>().FindAsync(id));
         }

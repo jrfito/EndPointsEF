@@ -27,6 +27,15 @@ namespace EndPointsEF
             CreateMap<FacturaModel, FacturaEntity>();
             CreateMap<FacturaEntity, FacturaModel>();
             CreateMap<FacturaEntity, FacturaFullModel>();
+
+            // Localidad
+            CreateMap<LocalidadPostModel, LocalidadEntity>();
+            CreateMap<LocalidadEntity, LocalidadModel>();
+           
+            // LOcalidad con childrens
+            CreateMap<LocalidadEntity, LocalidadPostModel>();
+            CreateMap<LocalidadEntity, LocalidadWithChildrensModel>()
+               .ForMember(d => d.LocalidadChildrens , options=> options.MapFrom(columnas => columnas.Childrens));
         }
     }
 }

@@ -55,6 +55,8 @@ namespace EndPointsEF
             services.AddTransient<IClienteService, ClienteService>();
             // Servicio Factura
             services.AddTransient<IFacturaService, FacturaService>();
+            // Localidad Service
+            services.AddTransient<ILocalidadService, LocalidadService>();
 
 
             services.AddControllers();
