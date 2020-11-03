@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using EndPointsEF.DataEntities;
 using EndPointsEF.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +38,11 @@ namespace EndPointsEF
             CreateMap<LocalidadEntity, LocalidadPostModel>();
             CreateMap<LocalidadEntity, LocalidadWithChildrensModel>()
                .ForMember(d => d.LocalidadChildrens , options=> options.MapFrom(columnas => columnas.Childrens));
+
+            // Files
+            CreateMap<IFormFile, FileUploadModel>()
+               .ForMember(d => d.FileName, options => options.MapFrom(columnas => columnas.FileName));
+            CreateMap<FileInfo, FileUploadModel>().ForMember(d => d.FileName, options => options.MapFrom(columnas => columnas.Name));
         }
     }
 }

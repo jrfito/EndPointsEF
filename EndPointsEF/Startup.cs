@@ -57,6 +57,8 @@ namespace EndPointsEF
             services.AddTransient<IFacturaService, FacturaService>();
             // Localidad Service
             services.AddTransient<ILocalidadService, LocalidadService>();
+            // Files Service
+            services.AddTransient<IFilesService, FilesService>();
 
 
             services.AddControllers();

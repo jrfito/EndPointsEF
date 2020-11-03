@@ -62,4 +62,3 @@ D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\AutoMapper.dll
 D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csproj.CoreCompileInputs.cache
 D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.MvcApplicationPartsAssemblyInfo.cache
-D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache
