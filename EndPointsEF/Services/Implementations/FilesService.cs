@@ -3,6 +3,7 @@ using EndPointsEF.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,13 +15,17 @@ namespace EndPointsEF.Services.Implementations
     {
         private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
+        private readonly IConfiguration _config;
+        private readonly string pathFiles;
         private IDictionary<string, string> _contentFile =
             new Dictionary<string, string>();
-        public FilesService(IWebHostEnvironment env, IMapper mapper)
+        public FilesService(IWebHostEnvironment env, IMapper mapper, IConfiguration config)
         {
             this._env = env;
             this._mapper = mapper;
+            this._config = config;
 
+            this.pathFiles = Path.Combine(_env.ContentRootPath, _config["MySettings:PathFiles"]);
             // Context Files
             _contentFile.Add(".txt", "text/plain");
             _contentFile.Add(".bmp", "image/bmp");
@@ -35,12 +40,13 @@ namespace EndPointsEF.Services.Implementations
 
         public async Task DeleteLoteFileAsync(string fileName)
         {
-            var _pathFileName = Path.Combine(_env.ContentRootPath, $"files\\{fileName}");
+            var _pathFileName = $"{this.pathFiles}\\{fileName}";
             if (File.Exists(_pathFileName))
             {
                 File.Delete(_pathFileName);
+                return;
             }
-            return;
+            throw new System.NullReferenceException();
         }
 
         public async  Task<FileDownloadModel> DownloadFileAsync(string fileName)

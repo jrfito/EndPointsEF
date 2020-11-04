@@ -60,6 +60,8 @@ namespace EndPointsEF
             // Files Service
             services.AddTransient<IFilesService, FilesService>();
 
+            // Configuracion de mis Settings
+            services.Configure<MySettings>(Configuration.GetSection("MySettings"));
 
             services.AddControllers();
         }

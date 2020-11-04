@@ -127,3 +127,4 @@ E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.dll
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.pdb
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.genruntimeconfig.cache
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache
+D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache
