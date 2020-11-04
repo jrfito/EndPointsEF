@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EndPointsEF.Models;
-using EndPointsEF.Services.Implementations;
+using EndPointsEF.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,6 +47,17 @@ namespace EndPointsEF.Controllers
 
         }
 
+        [HttpGet("DownloadFile/{fileName}")]
+        [ProducesResponseType(typeof(IEnumerable<FileUploadModel>), 200)]
+        public async Task<IActionResult> DownloadFile(string fileName)
+        {
+            var fileToDowload = await _fileService.DownloadFileAsync(fileName);
+            fileToDowload.Memory.Position = 0;
+
+            return File(fileToDowload.Memory, fileToDowload.ContentType, fileToDowload.FileName);
+
+        }
+
         [HttpDelete("{fileLote}")]
         [ProducesResponseType(200)]
         public async Task<IActionResult> Delete(string fileLote)
@@ -56,7 +68,6 @@ namespace EndPointsEF.Controllers
             }
             await _fileService.DeleteLoteFileAsync(fileLote);
             return StatusCode(200);
-
         }
 
     }

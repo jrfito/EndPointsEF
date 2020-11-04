@@ -14,11 +14,23 @@ namespace EndPointsEF.Services.Implementations
     {
         private readonly IWebHostEnvironment _env;
         private readonly IMapper _mapper;
-
+        private IDictionary<string, string> _contentFile =
+            new Dictionary<string, string>();
         public FilesService(IWebHostEnvironment env, IMapper mapper)
         {
             this._env = env;
             this._mapper = mapper;
+
+            // Context Files
+            _contentFile.Add(".txt", "text/plain");
+            _contentFile.Add(".bmp", "image/bmp");
+            _contentFile.Add(".jpg", "image/jpg");
+            _contentFile.Add(".png", "image/png");
+            _contentFile.Add(".pdf", "application/pdf");
+            _contentFile.Add(".xls", "application/vnd.ms-excel");
+            _contentFile.Add(".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            _contentFile.Add(".doc", "application/msword");
+            _contentFile.Add(".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         }
 
         public async Task DeleteLoteFileAsync(string fileName)
@@ -29,6 +41,29 @@ namespace EndPointsEF.Services.Implementations
                 File.Delete(_pathFileName);
             }
             return;
+        }
+
+        public async  Task<FileDownloadModel> DownloadFileAsync(string fileName)
+        {
+            var _pathFileName = Path.Combine(_env.ContentRootPath, $"files\\{fileName}");
+            if (File.Exists(_pathFileName))
+            {
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(_pathFileName, FileMode.Open))
+                {
+                    await stream.CopyToAsync(memory);
+
+                }
+                FileInfo fileInfo = new FileInfo(_pathFileName);
+                //var contentType = _contentFile.Where(v => v.Key.Equals(fileInfo.Extension)).FirstOrDefault().Value.ToString();
+                return new FileDownloadModel
+                {
+                    Memory = memory,
+                    FileName = fileInfo.Name,
+                    ContentType = _contentFile.Where(v => v.Key.Equals(fileInfo.Extension)).FirstOrDefault().Value.ToString()
+            };
+            }
+            throw new System.Exception();
         }
 
         public async Task<IEnumerable<FileUploadModel>> GetLoteFilesAsync()
