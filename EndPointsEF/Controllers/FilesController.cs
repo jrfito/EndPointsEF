@@ -48,7 +48,6 @@ namespace EndPointsEF.Controllers
         }
 
         [HttpGet("DownloadFile/{fileName}")]
-        [ProducesResponseType(typeof(IEnumerable<FileUploadModel>), 200)]
         public async Task<IActionResult> DownloadFile(string fileName)
         {
             var fileToDowload = await _fileService.DownloadFileAsync(fileName);
