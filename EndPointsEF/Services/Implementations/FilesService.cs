@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using EndPointsEF.DataContext;
 using EndPointsEF.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
@@ -14,14 +16,17 @@ namespace EndPointsEF.Services.Implementations
     public class FilesService : IFilesService
     {
         private readonly IWebHostEnvironment _env;
+        private readonly DbContextOptions<abcDbContext> _abcDbContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly string pathFiles;
+        private readonly abcDbContext dbContext;
         private IDictionary<string, string> _contentFile =
             new Dictionary<string, string>();
-        public FilesService(IWebHostEnvironment env, IMapper mapper, IConfiguration config)
+        public FilesService(IWebHostEnvironment env, DbContextOptions<abcDbContext> abcDbContext, IMapper mapper, IConfiguration config)
         {
             this._env = env;
+            this._abcDbContext = abcDbContext;
             this._mapper = mapper;
             this._config = config;
 
@@ -36,6 +41,8 @@ namespace EndPointsEF.Services.Implementations
             _contentFile.Add(".xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
             _contentFile.Add(".doc", "application/msword");
             _contentFile.Add(".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+
+            dbContext = new abcDbContext(abcDbContext);
         }
 
         public async Task DeleteLoteFileAsync(string fileName)
@@ -74,6 +81,9 @@ namespace EndPointsEF.Services.Implementations
 
         public async Task<IEnumerable<FileUploadModel>> GetLoteFilesAsync()
         {
+
+            var areas = await dbContext.Area.ToListAsync();
+            
             List<FileUploadModel> filesReturn = new List<FileUploadModel>();
             //files.Append(new FileModel { });
             var _pathImages = Path.Combine(_env.ContentRootPath, $"files");

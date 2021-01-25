@@ -1,6 +1,5 @@
 D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\appsettings.json
-D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\EndPointsEF.exe
 D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\EndPointsEF.deps.json
 D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\EndPointsEF.runtimeconfig.json
@@ -127,4 +126,5 @@ E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.dll
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.pdb
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.genruntimeconfig.cache
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache
+D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\scopedcss\bundle\EndPointsEF.styles.css
 D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache

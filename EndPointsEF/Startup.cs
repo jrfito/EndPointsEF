@@ -36,6 +36,12 @@ namespace EndPointsEF
                 .EnableSensitiveDataLogging(true).UseLazyLoadingProxies();
             });
 
+            services.AddDbContext<abcDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("Contac_Connection"))
+                .EnableSensitiveDataLogging(true).UseLazyLoadingProxies();
+            });
+
             // Automapper
             services.AddSingleton(provider =>
             {
