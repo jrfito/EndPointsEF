@@ -15,5 +15,6 @@ namespace EndPointsEF.Services
         Task<IEnumerable<FileUploadModel>> GetLoteFilesAsync();
         Task DeleteLoteFileAsync(string fileName);
         Task<FileDownloadModel> DownloadFileAsync(string fileName);
+        Task<int> ImportAmigosFromExcelAsync(IFormFile file);
     }
 }

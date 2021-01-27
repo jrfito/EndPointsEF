@@ -31,6 +31,17 @@ namespace EndPointsEF.DataContext
                 entity.Property(e => e.area_descripcion)
                     .HasColumnName("area_descripcion")
                     .HasMaxLength(150);
+
+            });
+            modelBuilder.Entity<AmonestacionEntity>(entity => {
+                entity.HasKey(e => e.id_amonestacion);
+                entity.ToTable("amonestacion");
+                entity.Property(e => e.id_autorizado)
+                    .HasColumnName("id_autorizado");
+                entity.Property(e => e.amonestacion_fecha)
+                    .HasColumnName("amonestacion_fecha");
+                entity.Property(e => e.amonestacion_concepto)
+                    .HasColumnName("amonestacion_concepto");
             });
         }
     }

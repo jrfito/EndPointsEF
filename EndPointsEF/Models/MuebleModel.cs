@@ -8,6 +8,15 @@ namespace EndPointsEF.Models
 {
     public class MuebleModel
     {
+        private DateTime _fecha;
+
+        public MuebleModel(DateTime? fecha)
+        {
+            this._fecha =  fecha.Value;
+        }
+        public DateTime Fecha { get {
+                return this._fecha;
+            } }
         public int Id { get; set; }
         [Required]
         public string Marca { get; set; }

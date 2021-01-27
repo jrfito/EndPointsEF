@@ -53,6 +53,14 @@
               "target": "Package",
               "version": "[8.0.1, )"
             },
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[2.12.1, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[4.5.3.3, )"
+            },
             "Microsoft.EntityFrameWorkCore.Proxies": {
               "target": "Package",
               "version": "[3.1.8, )"
@@ -70,6 +78,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.8, )"
+            },
+            "Open-XML-SDK": {
+              "target": "Package",
+              "version": "[2.9.1, )"
             }
           },
           "imports": [

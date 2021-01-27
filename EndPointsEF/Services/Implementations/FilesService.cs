@@ -6,21 +6,24 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using OfficeOpenXml;
 
 namespace EndPointsEF.Services.Implementations
 {
     public class FilesService : IFilesService
     {
+        private static int[] dateNumberFormats = new int[] { 14, 15, 16, 17, 22 };
         private readonly IWebHostEnvironment _env;
         private readonly DbContextOptions<abcDbContext> _abcDbContext;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly string pathFiles;
-        private readonly abcDbContext dbContext;
+        private readonly abcDbContext _dbContext;
         private IDictionary<string, string> _contentFile =
             new Dictionary<string, string>();
         public FilesService(IWebHostEnvironment env, DbContextOptions<abcDbContext> abcDbContext, IMapper mapper, IConfiguration config)
@@ -42,7 +45,7 @@ namespace EndPointsEF.Services.Implementations
             _contentFile.Add(".doc", "application/msword");
             _contentFile.Add(".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
-            dbContext = new abcDbContext(abcDbContext);
+            _dbContext = new abcDbContext(abcDbContext);
         }
 
         public async Task DeleteLoteFileAsync(string fileName)
@@ -56,7 +59,7 @@ namespace EndPointsEF.Services.Implementations
             throw new System.NullReferenceException();
         }
 
-        public async  Task<FileDownloadModel> DownloadFileAsync(string fileName)
+        public async Task<FileDownloadModel> DownloadFileAsync(string fileName)
         {
             var _pathFileName = Path.Combine(_env.ContentRootPath, $"files\\{fileName}");
             if (File.Exists(_pathFileName))
@@ -74,7 +77,7 @@ namespace EndPointsEF.Services.Implementations
                     Memory = memory,
                     FileName = fileInfo.Name,
                     ContentType = _contentFile.Where(v => v.Key.Equals(fileInfo.Extension)).FirstOrDefault().Value.ToString()
-            };
+                };
             }
             throw new System.Exception();
         }
@@ -82,8 +85,8 @@ namespace EndPointsEF.Services.Implementations
         public async Task<IEnumerable<FileUploadModel>> GetLoteFilesAsync()
         {
 
-            var areas = await dbContext.Area.ToListAsync();
-            
+            var areas = await _dbContext.Area.ToListAsync();
+
             List<FileUploadModel> filesReturn = new List<FileUploadModel>();
             //files.Append(new FileModel { });
             var _pathImages = Path.Combine(_env.ContentRootPath, $"files");
@@ -92,7 +95,7 @@ namespace EndPointsEF.Services.Implementations
                 throw new System.NullReferenceException();
             }
             var myDirectory = Directory.GetFiles(_pathImages);
-            
+
             foreach (var fileName in myDirectory)
             {
                 FileInfo fileInfo = new FileInfo(fileName);
@@ -129,5 +132,88 @@ namespace EndPointsEF.Services.Implementations
             }
             return _mapper.Map<FileUploadModel>(file);
         }
+
+        public async Task<int> ImportAmigosFromExcelAsync(IFormFile file)
+        {
+            
+            if (file == null)
+            {
+                throw new ArgumentException("El archivo no debe de ser nulo.");
+            }
+            using (var excelFileMemoryStream = new MemoryStream())
+            {
+                await file.CopyToAsync(excelFileMemoryStream);
+                using (ExcelPackage packageExcel = new ExcelPackage(excelFileMemoryStream))
+                {
+                    foreach (ExcelWorksheet firstWorksheet in packageExcel.Workbook.Worksheets)
+                    {
+                        if (firstWorksheet == null)
+                        {
+                            throw new NullReferenceException("No se encontro Hoja.");
+                        }
+
+                    }
+                    //for (int fila = 3; fila <= firstWorksheet.Dimension.End.Row; fila++)
+                    //{
+                    //    ImportNewVoiceModel newVoz = new ImportNewVoiceModel();
+                    //    newVoz.FAIs = new List<FaiVoiceModel>();
+                    //    newVoz.ProyectoEntityId = proyectoId;
+                    //    newVoz.VozEntityId = null;
+                    //    worksheet.Cells[1, 1].FormulaR1C1 = @$"=SUM({firstWorksheet.Name}!R{fila}C3:R{fila}C{firstWorksheet.Dimension.End.Column})";
+                    //    worksheet.Cells[1, 1].Calculate();
+                    //    var valueCell = Convert.ToDecimal(worksheet.Cells[1, 1].Value);
+                    //    var NumeroActividad = Convert.ToString(firstWorksheet.Cells[fila, 1].Value);
+                    //    if (NumeroActividad.Length > 1)
+                    //    {
+                    //        var x = NumeroActividad.Substring(0, NumeroActividad.LastIndexOf("."));
+                    //        var vozParent = await _dbContext.Voz.FirstOrDefaultAsync(v => v.Numero.Equals(x));
+                    //        if (vozParent != null)
+                    //        {
+                    //            newVoz.VozEntityId = Convert.ToInt32(vozParent.Id);
+                    //        }
+                    //    }
+                    //    for (int columna = 1; columna <= firstWorksheet.Dimension.End.Column; columna++)
+                    //    {
+                    //        if (columna == 1)
+                    //        {
+                    //            newVoz.Numero = Convert.ToString(firstWorksheet.Cells[fila, columna].Value);
+                    //        }
+                    //        else if (columna == 2)
+                    //        {
+                    //            newVoz.Actividad = Convert.ToString(firstWorksheet.Cells[fila, columna].Value);
+                    //        }
+
+                    //        else if (columna > 2)
+                    //        {
+                    //            try
+                    //            {
+                    //                int Ejercicio = Convert.ToInt32(firstWorksheet.Cells[2, columna].Value);
+                    //                decimal Importe = Convert.ToDecimal(firstWorksheet.Cells[fila, columna].Value);
+                    //                if (Importe <= 0 && valueCell <= 0)
+                    //                {
+                    //                    break;
+                    //                }
+                    //                newVoz.FAIs.Add(new FaiVoiceModel
+                    //                {
+                    //                    Ejercicio = Ejercicio,
+                    //                    Importe = Importe
+                    //                });
+                    //            }
+                    //            catch (Exception e)
+                    //            {
+                    //                break;
+                    //            }
+                    //        }
+                    //    }
+                    //    // Aquí se inserta la voz
+                    //    var vozToAdd = await _dbContext.Voz.AddAsync(_mapperService.Map<VozEntity>(newVoz));
+                    //    await _dbContext.SaveChangesAsync();
+                    //}
+                }
+            }
+            
+            return 1;
+        }
+
     }
 }

@@ -128,3 +128,7 @@ E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.gen
 E:\Proyectos2020\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache
 D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\scopedcss\bundle\EndPointsEF.styles.css
 D:\Capacitacion\EndPointsEF\EndPointsEF\obj\Debug\netcoreapp3.1\EndPointsEF.csprojAssemblyReference.cache
+D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\DocumentFormat.OpenXml.dll
+D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\System.IO.Packaging.dll
+D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\EPPlus.dll
+D:\Capacitacion\EndPointsEF\EndPointsEF\bin\Debug\netcoreapp3.1\System.Xml.XPath.XmlDocument.dll
